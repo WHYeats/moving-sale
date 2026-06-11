@@ -328,7 +328,7 @@
 
     let manifest = {};
     try {
-      manifest = await fetch('photos/manifest.json').then(r => r.json());
+      manifest = await fetch(`photos/manifest.json?v=${Date.now()}`).then(r => r.json());
     } catch {
       statusEl.textContent = 'Could not load photo list. Please try again later.';
       return;
@@ -336,7 +336,7 @@
 
     let rows;
     try {
-      const buf = await fetch('items/items.xlsx').then(r => r.arrayBuffer());
+      const buf = await fetch(`items/items.xlsx?v=${Date.now()}`).then(r => r.arrayBuffer());
       const wb  = XLSX.read(buf, { type: 'array' });
       rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
     } catch {
